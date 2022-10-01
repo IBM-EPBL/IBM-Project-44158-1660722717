@@ -1,6 +1,9 @@
 from flask import Flask, render_template , request , redirect
 import ibm_db
-conn = ibm_db.connect("url", '', '')
+
+conn_str='DATABASE=bludb;HOSTNAME=9938aec0-8105-433e-8bf9-0fbb7e483086.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;PORT=32459;SECURITY=SSL;SSLServerCertificate=DigiCertGlobalRootCA.crt;uid=nqj17074;pwd=OtLWrbOC4qdYee4a'
+conn = ibm_db.connect(conn_str,'','')
+
 
 app = Flask(__name__)
 
@@ -11,7 +14,8 @@ def index():
       user_password = request.form['password']
       user_rollno = request.form['rollno']
       user_username = request.form['username']
-      stmt = ibm_db.exec_immediate(conn, "insert into users (username , email , rollno , password) values ('"+user_email+"','"+user_email+"','"+user_rollno+"','"+user_password+")")
+      sql = "insert into user (username , email , rollnumber , password) values ('"+user_username+"','"+user_email+"',"+user_rollno+",'"+user_password+"');"
+      stmt = ibm_db.exec_immediate(conn, sql)
       return redirect("/signin")
 
    return render_template("index.html")
@@ -23,13 +27,12 @@ def signin():
    if request.method == 'POST':
       user_email = request.form['email']
       user_password = request.form['password']
-      stmt = ibm_db.exec_immediate(conn, "select * from users where username="+user_email+" and password="+user_password)
+      stmt = ibm_db.exec_immediate(conn, "select * from user where email='"+user_email+"' and password='"+user_password+"';")
       user= ibm_db.fetch_assoc(stmt)
-      if(user){
+      if(user):
          return redirect("/user")
-      }else{
+      else:
          return render_template("signin.html")
-      }
       
    return render_template("signin.html")
 
