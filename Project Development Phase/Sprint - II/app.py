@@ -15,28 +15,10 @@ conn = ibm_db.connect(conn_str,'','')
 @app.route("/db",methods=['GET'])
 def db():
    # sql = "create table products (id integer not null GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),name varchar(500),rate int,stock int,img varchar(500),desc varchar(500),cat varchar(125),PRIMARY KEY (id));"
-   sql = "create table users (id integer not null GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),name varchar(500),email varchar(500),password varchar(225),mob varchar(125),address varchar(500),PRIMARY KEY (id));"
+   sql = "create table orders (id integer not null GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),userid varchar(200),productid varchar(250),data varchar(225),payment varchar(125),PRIMARY KEY (id));"
+   # sql = "create table users (id integer not null GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),name varchar(500),email varchar(500),password varchar(225),mob varchar(125),address varchar(500),PRIMARY KEY (id));"
    stmt = ibm_db.exec_immediate(conn, sql)
-   return "ok"+ibm_db.num_rows(stmt)
-
-# Without Account
-@app.route("/",methods=["GET"])
-def index():
-   return render_template("index.html")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   return "ok"
 
 # Admin
 @app.route("/admin",methods = ['POST', 'GET'])
@@ -57,10 +39,26 @@ def admin():
 @app.route("/admin/dashboard",methods = ['GET'])
 def dashboard():
    if(session['username']=='admin'):
-      return render_template("admin/orders/index.html")
+      data=[]
+      sql = "SELECT * FROM orders"
+      stmt = ibm_db.exec_immediate(conn, sql)
+      dictionary = ibm_db.fetch_both(stmt)
+      while dictionary != False:
+         data.append(dictionary)
+         dictionary = ibm_db.fetch_both(stmt)
+      return render_template("admin/orders/index.html" ,data =data )
    else:
       return redirect("/admin")
 
+@app.route("/admin/order",methods = ['POST'])
+def order_update():
+   if(session['username']=='admin'):
+      data=[]
+      sql = "UPDATE orders SET data='"+request.form['data']+"' , payment='"+request.form['payment']+"' where id ="+request.form["id"]
+      stmt = ibm_db.exec_immediate(conn, sql)
+      return redirect("/admin/dashboard")
+   else:
+      return redirect("/admin")
 
 # Admin Products
 @app.route("/admin/products",methods = ['GET'])

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VShow</title>
+  <style>
+    input:focus{
+      border:none !important;
+      outline: none !important;
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body style="background-color: #FFF;">
+  <nav style="box-shadow: 2px 4px 6px #ddd;">
+    <nav class="navbar-collapse " style="display: flex;flex-direction:column;justify-content:center;align-items:center;height:100px;background-color: #FFFFFF;">
+      <h1 style="font-weight: 900;color:#0B0B45;padding-top: 10px;">VShow</h1>
+
+      <div style="display: flex;flex-direction: row;border-top:2px solid #f0f0f0;padding-top: 10px;padding-left: 30px;padding-right: 160px;">
+      </div>
+    </nav>
+  </nav>
+
+  <br>
+
+  <div class="container" style="width:600px;background-color:#f0f0f0;border-radius: 20px;">
+    <br>
+    <h2 style="text-align:center;color:#444;font-weight:600;padding-bottom: 10px;">Welcome to Vshow</h2>
+    <p style="margin-left:20px;font-size:18px;font-weight:600;color:#444">Register / Sign Up</p>
+    <form action="/signup" method="post" style="margin:30px;text-align: center;">
+
+      <input type="text" required name="name" style="height:50px;width:100%;border-radius: 20px;border:none;padding:20px;box-shadow: 2px 4px 6px #aaa;" placeholder="Enter Your Name"><br><br>
+      <input type="email"  required name="email" style="height:50px;width:100%;border-radius: 20px;border:none;padding:20px;box-shadow: 2px 4px 6px #aaa;" placeholder="Enter Your Email"><br><br>
+      <input type="password"  required name="password" style="height:50px;width:100%;border-radius: 20px;border:none;padding:20px;box-shadow: 2px 4px 6px #aaa;" placeholder="Create Password"><br><br>
+      <input type="number"  required name="mob" style="height:50px;width:100%;border-radius: 20px;border:none;padding:20px;box-shadow: 2px 4px 6px #aaa;" placeholder="Enter Your Mobile"><br><br>
+      <textarea rows="3"  required name="address" style="width:100%;border-radius: 20px;border:none;padding:20px;box-shadow: 2px 4px 6px #aaa;" placeholder="Enter Your Current Address"></textarea><br><br>
+      <button style="background-color:#fff;color:#444;height:50px;width:70%;border-radius: 20px;border:none;box-shadow: 2px 4px 6px #aaa;font-size: 18px;">Create Account</button><br><br>
+    </form>
+    <p style="text-align: center;">Do you have an Account ? <a href="/login">Click Here</a></p>
+    <br>
+  </div>
+
+  <br>
+
+
+  <footer style="background-color: #fff;border-top:2px solid #f0f0f0">
+    <br>
+
+    <hr class="container">
+    <div style="text-align: center;color:#aaa">
+      <span >2022 © VShow. All Rights Reserved.</span><br>
+      <span>This site is best viewed in all resolution with latest version of Chrome, Firefox, Safari and Microsoft Edge</span>
+    </div>
+    <br>
+  </footer>
+
+  <script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

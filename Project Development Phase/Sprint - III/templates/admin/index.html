@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body style="background-color: #f0f0f0;">
+    <div class="container" style="margin-top:100px;margin-bottom:100px;width:500px;background-color: white;padding:30px 0px;border-radius: 30px;box-shadow: 2px 2px 8px #ccc;">
+        <h1 style="text-align: center;color:tomato"><b>Admin</b></h1>
+        <br>
+        <form style="margin: 0 20%" method="POST" action="/admin">
+          <div class="form-outline mb-4">
+            <label class="form-label">Email :</label>
+            <input type="email" name="email" required class="form-control" />
+          </div>
+          <div class="form-outline mb-4">
+            <label class="form-label">Password :</label>
+            <input type="password" name="password" required class="form-control" />
+          </div>
+        <br>
+        <center>
+          <button type="submit" class="btn btn-block mb-4" style="width:100%"><b>Log in</b></button>
+        </center>
+        </form>
+    </div>
+    <style>
+    button{
+        background-color: tomato !important;
+        color:white !important;
+        height:45px !important;
+    }
+    .form-control:focus , .form-control:active{
+        box-shadow: none !important;
+        border:1px solid tomato;
+    }
+    label{
+        color:gray
+    }
+    </style>
+    <script src="/static/js/bootstrap.bundle.js"></script>
+</body>
+</html>
