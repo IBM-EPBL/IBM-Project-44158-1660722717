@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body style="background-color: #f0f0f0;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="height:65px;background-color: #FC6F20;font-size: 18px;font-weight: 600;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">VShow Admin</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/admin/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin/products">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/users">Users</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <div class="container">
+      <div style="display: flex;justify-content:space-between">
+        <h3>Products</h3>
+        <button type="button" class="btn btn-primary" style="background-color:#FC6F20" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Add
+        </button>
+      </div>
+      <hr>
+      <br>
+      <div class="row">
+        {% for i in data %}
+        
+        <div class="col-3">
+          <div class="card" style="width: 100%;border-radius: 10px !important;">
+            <img class="card-img-top" style="border-radius: 10px !important;height: 150px;" src="/static/uploads/{{ i['IMG']+'.png' }}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{ i["NAME"] }}</h5>
+              <div style="display:flex;justify-content: space-between;">
+                <p class="card-text">Stock : {{ i["STOCK"] }}</p>
+                <p class="card-text">Rate : {{ i["RATE"] }}</p>
+              </div>
+              <div style="display:flex;justify-content:end;">
+                <form action="/admin/products/delete" method="post">
+                  <input type="hidden" name="id" value="{{ i['ID']}}">
+                  <button class="btn btn-danger" >Delete</button>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/admin/products/add" enctype="multipart/form-data" method="post">
+              <div class="mb-3">
+                <label for="name" class="form-label">Product Name :</label>
+                <input required type="text" name="name" class="form-control" id="name" placeholder="Product Name">
+              </div>
+
+              <div class="mb-3">
+                <label for="rate" class="form-label">Product Rate :</label>
+                <input required type="number" name="rate" class="form-control" id="rate" placeholder="Product Rate">
+              </div>
+
+              <div class="mb-3">
+                <label for="stock" class="form-label">Product Stock :</label>
+                <input required type="number" name="stock" class="form-control" id="stock" placeholder="Product Stock">
+              </div>
+              <div class="mb-3">
+                <label for="file" class="form-label">Category :</label>
+                <select class="form-select" required name="cat">
+                  <option selected>Select Category</option>
+                  <option value="MEN">MEN</option>
+                  <option value="WOMEN">WOMEN</option>
+                  <option value="KIDS">KIDS</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="file" class="form-label">Product Image :</label>
+                <input required type="file" name="file" class="form-control" id="file">
+              </div>
+
+              <div class="mb-3">
+                <label for="desc" class="form-label">Product Description :</label>
+                <textarea required name="desc" class="form-control" id="desc" rows="3" rows="4"></textarea>
+              </div>
+              <center>
+                <button class="btn" style="background-color: #FC6F20;color:#f0f0f0;font-size: 18px;width:100%">Create Product</button>
+              </center>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/static/js/bootstrap.bundle.js"></script>
+</body>
+</html>

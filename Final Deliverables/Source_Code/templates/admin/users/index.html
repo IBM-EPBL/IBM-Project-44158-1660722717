@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body style="background-color: #f0f0f0;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="height:65px;background-color: #FC6F20;font-size: 18px;font-weight: 600;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">VShow Admin</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/admin/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/products">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin/users">Users</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <div class="container">
+
+      <h3 >Users</h3>
+    </div>
+    <table class="table table-striped-columns container" style="border: 1px solid #aaa;" >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mobile No</th>
+          <th scope="col">Address</th>
+          <th scope="col" style="color:red">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <th scope="row">{{ i["ID"] }}</th>
+          <td>{{ i["NAME"] }}</td>
+          <td>{{ i["EMAIL"] }}</td>
+          <td>{{ i["MOB"] }}</td>
+          <td>{{ i["ADDRESS"] }}</td>
+          <td><form action="/admin/users/delete" method="post">
+            <input type="hidden" name="id" value="{{ i['ID'] }}">
+            <button class="btn btn-danger">Delete</button>
+          </form></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <script src="/static/js/bootstrap.bundle.js"></script>
+</body>
+</html>
